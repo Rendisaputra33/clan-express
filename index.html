@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Todo App</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      /* Style untuk form dan tombol */
+      form {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+      }
+      input[type="text"] {
+        padding: 8px;
+        margin-bottom: 8px;
+      }
+      button {
+        padding: 8px;
+        background-color: #1a73e8;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0d47a1;
+      }
+      /* Style untuk daftar task */
+      ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px;
+        margin-bottom: 8px;
+        background-color: #f7f7f7;
+        border-radius: 5px;
+      }
+      li span {
+        margin-right: 8px;
+      }
+      .complete {
+        text-decoration: line-through;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Todo App</h1>
+
+    <!-- Form untuk menambah task -->
+    <form id="form">
+      <input type="text" id="task" placeholder="Tambahkan task baru" />
+      <button type="submit">Tambah</button>
+    </form>
+
+    <!-- Daftar task -->
+    <ul id="list"></ul>
+
+    <script>
+      const API_URL = "http://localhost:4000/todo";
+
+      const form = document.querySelector("#form");
+      const taskInput = document.querySelector("#task");
+      const list = document.querySelector("#list");
+
+      // Fungsi untuk menampilkan task ke dalam daftar
+      function displayTask(task) {
+        const li = document.createElement("li");
+        li.innerHTML = `
+                    <span class="task">${task.task}</span>
+                    <span class="date">${task.date}</span>
+                    <button class="complete-btn">${
+                      task.complete ? "Selesai" : "Belum selesai"
+                    }</button>
+                    <button class="delete-btn">Hapus</button>
+                  `;
+
+        // Jika task sudah selesai, tambahkan class "complete" ke span dengan class "task"
+        if (task.complete) {
+          li.querySelector(".task").classList.add("complete");
+        }
+
+        const completeBtn = li.querySelector(".complete-btn");
+        const deleteBtn = li.querySelector(".delete-btn");
+
+        // Ketika tombol "Selesai" di klik, kirim request ke API untuk mengubah status task menjadi selesai atau belum selesai
+        completeBtn.addEventListener("click", () => {
+          const newTask = {
+            pekerjaan: task.task,
+            sudah_selesai: !task.completed,
+          };
+          fetch(`${API_URL}/${task.id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newTask),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              task = data.data;
+              completeBtn.textContent = task.completed
+                ? "Selesai"
+                : "Belum selesai";
+              li.querySelector(".task").classList.toggle("complete");
+            });
+        });
+
+        // Ketika tombol "Hapus" di klik, kirim request ke API untuk menghapus task
+        // Ketika tombol "Hapus" di klik, kirim request ke API untuk menghapus task
+        deleteBtn.addEventListener("click", () => {
+          fetch(`${API_URL}/${task.id}`, {
+            method: "DELETE",
+          }).then(() => {
+            li.remove();
+          });
+        });
+
+        list.appendChild(li);
+      }
+
+      // Ketika halaman pertama kali dimuat, tampilkan daftar task yang sudah tersedia
+      fetch(API_URL)
+        .then((res) => res.json())
+        .then((data) => {
+          data.data.forEach((task) => {
+            displayTask(task);
+          });
+        });
+
+      // Ketika form di submit, kirim request ke API untuk menambahkan task baru dan tampilkan task tersebut di daftar
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const task = taskInput.value.trim();
+        if (!task) return;
+
+        fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            pekerjaan: task,
+            sudah_selesai: false,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            displayTask(data.data);
+            taskInput.value = "";
+          });
+      });
+    </script>
+  </body>
+</html>
