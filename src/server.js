@@ -9,22 +9,20 @@ const application = express();
 // menentukan port yang akan digunakan menjalankan server
 const PORT = 4000;
 
-application.use(
-  cors({
-    origin: "*",
-  })
-);
+//
+application.use(cors({ origin: "*" }));
 
 // mendaftarkan module untuk membaca input yang dikirim oleh client/user
 application.use(express.urlencoded({ extended: false }));
 application.use(express.json());
 
+application.set("view engine", "ejs");
 // mendaftarkan router yang telah dibuat ke object express
 // parameter pertama mendefinisikan prefix dari router
 // parameter kedua mendifisikan router yang telah dibuat
-application.use("/todo", router);
+application.use("/todo", router(connection));
 
 // menjalankan server ke port 4000
-application.listen(PORT, function () {
+application.listen(PORT, async function () {
   console.log(`Server berjalan di : http://localhost:${PORT}`);
 });
