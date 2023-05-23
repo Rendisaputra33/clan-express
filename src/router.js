@@ -1,7 +1,11 @@
 // memanggil router dari package express yang telah diinstall
 const { Router } = require("express");
-const todo = require("./todo");
-const {getHandler, postHandler, putHandler, deleteHandler} = require("./handler");
+const {
+  getHandler,
+  postHandler,
+  putHandler,
+  deleteHandler,
+} = require("./handler");
 // membuat instance object dari Router
 const router = Router();
 
@@ -19,4 +23,3 @@ router.delete("/:id", deleteHandler);
 
 // mengekspor object router yang dibuat agar bisa digunakan oleh file lain yang membutuhkan
 module.exports = router;
-
