@@ -3,7 +3,7 @@
  - ### Membuat sebuah mini aplikasi dengan ketentuan sebagai berikut
     - Menggunakan framework express.js
     - Menerapkan middleware
-    - Menerapkan menggunakan database
+    - Menggunakan database sebagai media penyimpanan
     - Menggunakan view engine (ejs)
     - Memisahkan handler, router, database dari main file (server.js)
  
