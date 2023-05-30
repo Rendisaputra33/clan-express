@@ -1,6 +1,7 @@
 # Mission Assignment
 
  - ### Membuat sebuah mini aplikasi dengan ketentuan sebagai berikut
+    - Menggunakan framework express.js
     - Menerapkan middleware
     - Menerapkan menggunakan database
     - Menggunakan view engine (ejs)
