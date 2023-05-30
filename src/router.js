@@ -9,17 +9,21 @@ const {
 // membuat instance object dari Router
 const router = Router();
 
-// mendaftarkan jalur dengan method GET untuk memuat data todo yang telah dibuat
-router.get("/", getHandler);
+function routerCall(connection) {
+  // mendaftarkan jalur dengan method GET untuk memuat data todo yang telah dibuat
+  router.get("/", getHandler(connection));
 
-// mendaftarkan jalur untuk menambah todo dengan methode POST
-router.post("/", postHandler);
+  // mendaftarkan jalur untuk menambah todo dengan methode POST
+  router.post("/", postHandler(connection));
 
-// mendaftarkan jalur untuk merubah todo dengan methode PUT
-router.put("/:id", putHandler);
+  // mendaftarkan jalur untuk merubah todo dengan methode PUT
+  router.put("/:id", putHandler(connection));
 
-// mendaftarkan jalur untuk menghapus todo dengan methode DELETE
-router.delete("/:id", deleteHandler);
+  // mendaftarkan jalur untuk menghapus todo dengan methode DELETE
+  router.delete("/:id", deleteHandler(connection));
+
+  return router;
+}
 
 // mengekspor object router yang dibuat agar bisa digunakan oleh file lain yang membutuhkan
-module.exports = router;
+module.exports = routerCall;
