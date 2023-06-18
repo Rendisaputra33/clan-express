@@ -14,3 +14,5 @@
     - Menggunakan database sebagai media penyimpanan
     - Membuat 2 resource contoh : crud user, crud post
     - frontend boleh menggunakan html ataupus ejs
+
+### Jika sudah mengerjakan harap mengirim ke sekertaris clan dengan menyertakan link github tugas
