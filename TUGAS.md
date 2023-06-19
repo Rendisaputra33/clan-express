@@ -7,7 +7,7 @@
     - Menggunakan database sebagai media penyimpanan
     - Membuat 2 resource contoh : crud user, crud post
 
- - ### Untuk absen (-6) lebih Membuat sebuah aplikasi backend sekaligus frontend dengan ketentuan sebagai berikut
+ - ### Untuk absen (-6) Membuat sebuah aplikasi backend sekaligus frontend dengan ketentuan sebagai berikut
     - tema bebas (tidak boleh sama antar anggota)
     - Menggunakan framework express.js
     - Memiliki stidaknya 1 middleware
