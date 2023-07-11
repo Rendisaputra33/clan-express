@@ -2,7 +2,7 @@
 
  - ### Untuk mendapatkan surat aktif harus membuat aplikasi dengan menggunakan nodejs dengan ketentuan
     - Tema bebas
-    - Backend Front end
+    - Backend
     - fitur wajib (login, register)
     - bisa mengelola 2 sumber daya (2 tabel)
     - terdapat middleware hanya yang sudah login yang bisa mengakses sumber daya
